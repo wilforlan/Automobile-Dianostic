@@ -1,0 +1,140 @@
+{% extends "layouts/layouts.html" %}
+{% import "macros/forms.html" as forms %}
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+.important { color: #336699; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-8">
+
+
+      {% if posts|length > 0 %}
+        {% for post in posts %}
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="media-heading">{{ post.title }} <span class="pull-right">{{ post.name }}</span></h3>
+
+          </div>
+          <div class="panel-body">
+        <div class="media">
+          <div class="media-left">
+            <a href="#">
+              <img class="media-object" src="/static/images/avatar.png" alt="Avatar" width="50px">
+            </a>
+          </div>
+          <div class="media-body">
+            <span class="pull-right"><strong>Posted:</strong> {{ post.created }}</span>
+
+            <p>
+              {{ post.content }}
+            </p>
+          </div>
+        </div>
+        <div class="well well-sm">
+
+          {% for comment in comments %}
+              {% if comment.post_id == post.id > 0 %}
+
+              <div class="alert alert-info">
+              <span class="badge pull-right">Posted on: {{ comment.created }}</span>
+                <p> {{ comment.comment }}</p>
+                </div>
+              {% endif %}
+          {% endfor %}
+
+
+
+          {{ forms.open('post','form-horizontal','index/saveComment') }}
+          <label for="content"> Have anything to say ? </label>
+            {{ forms.textarea('comment', 'form-control') }}
+            <br/>
+            <input type="hidden" name="post_id" value="{{ post.id }}">
+            <br>
+            {{ forms.button('submit','btn btn-info pull-right','Add Comment') }}
+            <br>
+          </form>
+
+          <br/>
+        </div>
+      </div>
+
+    </div>
+        {% endfor %}
+
+      {% else %}
+      <div class="alert alert-info">
+        <p>
+          No Post Yet
+        </p>
+      </div>
+      {% endif %}
+
+
+
+
+
+
+
+</div>
+<div class="col-md-4">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3>Create new posts</h3>
+    </div>
+    <div class="panel-body">
+      {{ forms.open('post','form-horizontal','index/save') }}
+      <div class="input-group">
+        <span class="input-group-addon">Title</span>
+        {{ forms.input('title', 'form-control') }}
+      </div>
+      <br/>
+      <label for="content"> Content </label>
+        {{ forms.textarea('content', 'form-control') }}
+        <br/>
+        <div class="input-group">
+          <span class="input-group-addon">Category</span>
+      <select class="form-control" name="category">
+        {% for cat in cats %}
+          <option value="{{ cat.id }}">{{ cat.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <br/>
+        {{ forms.button('submit','btn btn-info pull-right','Add Post') }}
+
+        {{ form.close() }}
+
+    </div>
+
+  </div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3>Create Category</h3>
+    </div>
+    <div class="panel-body">
+      {{ forms.open('post','form-horizontal','index/saveCategory') }}
+      <div class="input-group">
+        <span class="input-group-addon">Name</span>
+        {{ forms.input('name', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">Alias</span>
+        {{ forms.input('alias', 'form-control') }}
+        </div>
+        {{ forms.button('submit','btn btn-info pull-right','Add Category') }}
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+{% endblock %}

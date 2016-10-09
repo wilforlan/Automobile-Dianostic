@@ -1,0 +1,47 @@
+{% extends "layouts/layouts.html" %}
+{% import "macros/forms.html" as forms %}
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+  .important { color: #336699; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+
+
+<div class="col-md-3">
+</div>
+
+<div class="col-md-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+          Login
+      </div>
+      <div class="panel-body">
+        {{ forms.open('post','form-horizontal','admin/login') }}
+        <div class="input-group">
+          <span class="input-group-addon">Username</span>
+          {{ forms.input('login', 'form-control') }}
+        </div>
+        <br/>
+        <div class="input-group">
+          <span class="input-group-addon">Password</span>
+          {{ forms.input('password', 'form-control') }}
+        </div>
+        <br/>
+
+        <br/>
+        {{ forms.button('action_login','btn btn-info pull-right','Login','submit') }}
+
+        {{ form.close() }}
+      </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "layouts/layouts.html" %}
+{% import "macros/forms.html" as forms %}
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+  .important { color: #336699; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-12">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3>Faults Registration</h3>
+    </div>
+    <div class="panel-body">
+      {{ forms.open('post','form-inline','/admin/searchDiagnosis') }}
+      <div class="input-group">
+        <span class="input-group-addon">Nature Of Fault</span>
+        <select class="form-control" name="faults">
+          {% for post in faults %}
+          <option value="{{ post.diag_id }}">{{ post.nature_of_fault }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon">Choose Client</span>
+        <select class="form-control" name="client">
+          {% for client in clients %}
+          <option value="{{ client.client_id }}">{{ client.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {{ forms.button('submit','btn btn-info pull-right','Search') }}
+
+      {{ form.close() }}
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="col-md-12">
+
+  {% if results|length > 0 %}
+
+
+        {% for fault in results %}
+<div class="col-md-6">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+              Search Results
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+              <li class="list-group-item">Nature Of Fault: {{ fault.nature_of_fault }}</li>
+              <li class="list-group-item">Possible Faults: {{ fault.possible_fault }}</li>
+              <li class="list-group-item">Probable Solution: {{ fault.probable_solution }}</li>
+            </ul>
+            <div class="well well-sm">
+              <img src="/uploads/{{ fault.picture }}" alt="No Image Available" width="200px" class="img-responsive"/>
+            </div>
+          </div>
+        </div>
+</div>
+    {% endfor %}
+
+    {% for post in clients %}
+<div class="col-md-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+          Search Results
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          <li class="list-group-item">Client's Name: {{ post.name }}</li>
+          <li class="list-group-item">Location: {{ post.location }}</li>
+          <li class="list-group-item">Phone Number: {{ post.mobile }}</li>
+          <li class="list-group-item">Vehicle Type: {{ post.vehicle_type }}</li>
+          <li class="list-group-item">License Number: {{ post.license_number }}</li>
+          <li class="list-group-item">Date Issued: {{ post.date_issued }}</li>
+          <li class="list-group-item">Engine Number: {{ post.engine_number }}</li>
+          <li class="list-group-item">Chasis Number: {{ post.chasis_number }}</li>
+          <li class="list-group-item">Year Purchased: {{ post.year_purchased }}</li>
+          <li class="list-group-item">State Purchased: {{ post.state_purchased }}</li>
+          <li class="list-group-item">Date Registered: {{ post.created }}</li>
+        </ul>
+      </div>
+    </div>
+</div>
+{% endfor %}
+
+  {% else %}
+  <div class="alert alert-danger">
+    <p>
+      Choose Search Criteria
+    </p>
+  </div>
+  {% endif %}
+</div>
+
+
+
+{% endblock %}

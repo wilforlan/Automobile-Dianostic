@@ -1,0 +1,97 @@
+{% extends "layouts/layouts.html" %}
+{% import "macros/forms.html" as forms %}
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+  .important { color: #336699; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-8">
+  {% if faults|length > 0 %}
+
+
+        {% for post in faults %}
+
+        <div class="well well-sm">
+        <a href="#" data-toggle="modal" data-target="#myModal{{ post.diag_id }}" class="list-group-item active">
+          {{ post.nature_of_fault }}
+        </a>
+      </div>
+      <div class="modal fade" id="myModal{{ post.diag_id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel{{ post.client_id }}">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel{{ post.diag_id }}">{{ post.name }}</h4>
+            </div>
+            <div class="modal-body">
+              <ul class="list-group">
+                <li class="list-group-item">Nature Of Fault: {{ post.nature_of_fault }}</li>
+                <li class="list-group-item">Possible Faults: {{ post.possible_fault }}</li>
+                <li class="list-group-item">Probable Solution: {{ post.probable_solution }}</li>
+              </ul>
+              <div class="well well-sm">
+                <img src="/uploads/{{ post.picture }}" width="200px" alt="No Image Available" class="img-responsive"/>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+  <div class="alert alert-info">
+    <p>
+      No Post Yet
+    </p>
+  </div>
+  {% endif %}
+</div>
+<div class="col-md-4">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3>Faults Registration</h3>
+    </div>
+    <div class="panel-body">
+      {{ forms.open('post','form-horizontal','/admin/saveFaults','multipart/form-data') }}
+      <div class="input-group">
+        <span class="input-group-addon">Nature of Fault</span>
+        {{ forms.input('nature', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">Possible Faults</span>
+        {{ forms.input('faults', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">Probable Solution</span>
+        {{ forms.textarea('solution', 'form-control') }}
+      </div>
+
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon2">Select Picture</span>
+        <input type="file" name='file_upload' class="form-control" aria-describedby="basic-addon2">
+      </div>
+
+      <br/>
+      {{ forms.button('submit','btn btn-info pull-right','Add Client') }}
+
+      {{ form.close() }}
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "layouts/layouts.html" %}
+{% import "macros/forms.html" as forms %}
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+.important { color: #336699; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-8">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      All Categories
+    </div>
+    <div class="panel-body">
+      {% if categories|length > 0 %}
+      <ul class="list-group">
+        {% for category in categories %}
+
+
+        <li class="list-group-item">
+          <div class="list-group">
+          <div class="list-group-item">
+            {% if categories >= 0 %}
+            <span class="badge">0</span>
+            {% else %}
+            <span class="badge">{{ count }}</span>
+            {% endif %}
+            <h4 class="list-group-item-heading">{{ category.name }}</h4>
+            <p class="list-group-item-text"><strong>Alias:</strong> {{ category.alias }}</p>
+          </div>
+        </div>
+
+        </li>
+          {% endfor %}
+        </ul>
+
+      {% else %}
+      <div class="alert alert-info">
+        <p>
+          No Post Yet
+        </p>
+      </div>
+      {% endif %}
+
+
+
+
+
+    </div>
+
+  </div>
+
+</div>
+<div class="col-md-4">
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3>Create Category</h3>
+    </div>
+    <div class="panel-body">
+      {{ forms.open('post','form-horizontal','categories/save') }}
+      <div class="input-group">
+        <span class="input-group-addon">Name</span>
+        {{ forms.input('name', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">Alias</span>
+        {{ forms.input('alias', 'form-control') }}
+        </div>
+        {{ forms.button('submit','btn btn-info pull-right','Add Category') }}
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+{% endblock %}

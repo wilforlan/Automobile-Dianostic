@@ -1,0 +1,79 @@
+{% extends "layouts/layouts.html" %}
+{% import "macros/forms.html" as forms %}
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+.important { color: #336699; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-8">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      Update Post
+    </div>
+    <div class="panel-body">
+
+      {{ forms.open('post','form-horizontal','index/save') }}
+
+      {{ posts.title }}
+      <div class="input-group">
+        <span class="input-group-addon">Title</span>
+        <input type="text" name="title" value="{{ post.title }}" class="form-control">
+      </div>
+      <br/>
+      <label for="content"> Content </label>
+        <textarea name="content" rows="8" cols="40" name="content" value="{{ post.content }}" class="form-control"></textarea>
+        <br/>
+        <div class="input-group">
+          <span class="input-group-addon">Category</span>
+      <select class="form-control" name="category">
+        {% for cat in cats %}
+          <option value="{{ cat.id }}">{{ cat.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <br/>
+        {{ forms.button('submit','btn btn-info pull-right','Add Post') }}
+
+
+        {{ form.close() }}
+
+
+
+    </div>
+
+  </div>
+
+</div>
+<div class="col-md-4">
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3>Create Category</h3>
+    </div>
+    <div class="panel-body">
+      {{ forms.open('post','form-horizontal','categories/save') }}
+      <div class="input-group">
+        <span class="input-group-addon">Name</span>
+        {{ forms.input('name', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">Alias</span>
+        {{ forms.input('alias', 'form-control') }}
+        </div>
+        {{ forms.button('submit','btn btn-info pull-right','Add Category') }}
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+{% endblock %}

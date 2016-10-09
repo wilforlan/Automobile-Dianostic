@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>twig</title>
+</head>
+<body>
+    <h1>Users</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for user in data %}
+        <tr>
+            <td>{{ user.user_id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.password }}</td>
+            <td>{{ user.email }}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+
+</body>
+</html>

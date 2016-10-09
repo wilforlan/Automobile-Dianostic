@@ -1,0 +1,132 @@
+{% extends "layouts/layouts.html" %}
+{% import "macros/forms.html" as forms %}
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+  .important { color: #336699; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-8">
+  {% if clients|length > 0 %}
+
+
+        {% for post in clients %}
+
+        <div class="well well-sm">
+        <a href="#" data-toggle="modal" data-target="#myModal{{ post.client_id }}" class="list-group-item active">
+          {{ post.name }}
+        </a>
+      </div>
+      <div class="modal fade" id="myModal{{ post.client_id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel{{ post.client_id }}">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel{{ post.client_id }}">{{ post.name }}</h4>
+            </div>
+            <div class="modal-body">
+              <ul class="list-group">
+                <li class="list-group-item">Client's Name: {{ post.name }}</li>
+                <li class="list-group-item">Location: {{ post.location }}</li>
+                <li class="list-group-item">Phone Number: {{ post.mobile }}</li>
+                <li class="list-group-item">Vehicle Type: {{ post.vehicle_type }}</li>
+                <li class="list-group-item">License Number: {{ post.license_number }}</li>
+                <li class="list-group-item">Date Issued: {{ post.date_issued }}</li>
+                <li class="list-group-item">Engine Number: {{ post.engine_number }}</li>
+                <li class="list-group-item">Chasis Number: {{ post.chasis_number }}</li>
+                <li class="list-group-item">Year Purchased: {{ post.year_purchased }}</li>
+                <li class="list-group-item">State Purchased: {{ post.state_purchased }}</li>
+                <li class="list-group-item">Date Registered: {{ post.created }}</li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+  <div class="alert alert-info">
+    <p>
+      No Post Yet
+    </p>
+  </div>
+  {% endif %}
+</div>
+<div class="col-md-4">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3>Client Registration</h3>
+    </div>
+    <div class="panel-body">
+      {{ forms.open('post','form-horizontal','admin/save') }}
+      <div class="input-group">
+        <span class="input-group-addon">Customer Name</span>
+        {{ forms.input('customer_name', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">Location</span>
+        {{ forms.input('location', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">Mobile Phone</span>
+        {{ forms.input('mobile', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">Vehicle Type</span>
+        {{ forms.input('vehicle_type', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">License Number</span>
+        {{ forms.input('license_number', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">Date Issued</span>
+        {{ forms.input('date_issued', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">Engine Number</span>
+        {{ forms.input('engine_number', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">Chasis Number</span>
+        {{ forms.input('chasis_number', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">Year of Purchase</span>
+        {{ forms.input('year_purchased', 'form-control') }}
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">State of Purchase</span>
+        {{ forms.input('state_purchased', 'form-control') }}
+      </div>
+      <br/>
+
+      <br/>
+      {{ forms.button('submit','btn btn-info pull-right','Add Client') }}
+
+      {{ form.close() }}
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+{% endblock %}
