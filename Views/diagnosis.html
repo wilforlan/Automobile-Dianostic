@@ -20,7 +20,7 @@
       <div class="input-group">
         <span class="input-group-addon">Nature Of Fault</span>
         <select class="form-control" name="faults">
-          {% for post in faults %}
+          {% for post in errors %}
           <option value="{{ post.diag_id }}">{{ post.nature_of_fault }}</option>
           {% endfor %}
         </select>
@@ -28,12 +28,12 @@
       <div class="input-group">
         <span class="input-group-addon">Choose Client</span>
         <select class="form-control" name="client">
-          {% for client in clients %}
+          {% for client in customers %}
           <option value="{{ client.client_id }}">{{ client.name }}</option>
           {% endfor %}
         </select>
       </div>
-      {{ forms.button('submit','btn btn-info pull-right','Search') }}
+      {{ forms.button('submit','btn btn-info pull-right','Diagnonize') }}
 
       {{ form.close() }}
 

@@ -1,0 +1,23 @@
+{
+    "name": "opis/session",
+    "description": "Opis Session is a session manager library with support for multiple backend storages that provides developers with an API which allows them to handle session related informations in a standardised way.",
+    "keywords": ["opis", "session", "session storage", "session redis"],
+    "homepage": "http://www.opis.io/session",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Marius Sarca",
+            "email": "marius.sarca@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "suggest": {
+        "opis/storages": "Store users' session data using Redis and SQL databases"
+    },
+    "autoload": {
+        "psr-4": {"Opis\\Session\\": "lib/"},
+        "classmap": ["lib/PHP"]
+    }
+}

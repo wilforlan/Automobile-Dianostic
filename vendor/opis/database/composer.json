@@ -1,0 +1,26 @@
+{
+    "name": "opis/database",
+    "description": "Opis Database is a library that provides an abstraction layer over several database systems, offering a standard way of handling database records and thus, making the differences between various SQL dialects irrelevant for developers.",
+    "keywords": ["database", "query", "abstraction", "mysql", "postgre", "sql", "sqlite", "firebird",
+                 "nuodb", "db2", "oracle", "sql server", "orm", "models", "schema", "query builder", "schema builder"],
+    "homepage": "http://opis.io",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Marius Sarca",
+            "email": "marius.sarca@gmail.com"
+        }
+    ],
+    "scripts": {
+      "test": "phpunit tests"
+    },
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-4": {"Opis\\Database\\": "lib/"}
+    }
+}

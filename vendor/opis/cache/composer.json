@@ -1,0 +1,22 @@
+{
+    "name": "opis/cache",
+    "description": "A caching library, with support for multiple backend storages, that provides developers an API which allows them to deal with cached content in a standardised way, no matter where that content is stored. ",
+    "keywords": ["cache", "caching", "file", "redis", "database", "apc"],
+    "homepage": "http://www.opis.io/cache",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Marius Sarca",
+            "email": "marius.sarca@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "suggest": {
+        "opis/storages": "Store your cached content using Redis and SQL databases"
+    },
+    "autoload": {
+        "psr-4": {"Opis\\Cache\\": "lib/"}
+    }
+}

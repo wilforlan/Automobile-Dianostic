@@ -16,7 +16,7 @@ class AdminController extends C_Base
 
   	function __construct( $tile )
   	{
-      $this->Model('categoriesModel');
+      // $this->Model('categoriesModel');
   		$this->model = new $tile;
   	}
 
@@ -104,23 +104,28 @@ class AdminController extends C_Base
     public function diagnosis()
     {
       Init::view('diagnosis', array(
-        'faults' => $this->model->getFaults(),
-        'clients' => $this->model->getClients()
+        'errors' => $this->model->getFaults(),
+        'customers' => $this->model->getClients()
       ));
     }
 
     public function searchDiagnosis()
     {
-      if (isset($_POST)) {
+      if (isset($_POST['faults'])) {
         $faults = $_POST['faults'];
         $client = $_POST['client'];
         Init::view('diagnosis', array(
           'results' => $this->model->getFaultsById($faults),
-          'clients' => $this->model->getClientsById($client)
+          'clients' => $this->model->getClientsById($client),
+          'errors' => $this->model->getFaults(),
+          'customers' => $this->model->getClients()
         ));
       }
       else {
-        Init::view('diagnosis');
+        Init::view('diagnosis', array(
+          'errors' => $this->model->getFaults(),
+          'customers' => $this->model->getClients()
+        ));
       }
 
 
