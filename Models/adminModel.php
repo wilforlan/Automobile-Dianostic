@@ -13,6 +13,13 @@ class AdminModel extends C_Model
 
       return $posts;
   }
+
+  // public function countReceipt($id){
+  //   $count = $this->connect()->from('receipts')
+  //                             ->where('receipts.client_id')->eq($id)
+  //                             ->count();
+  //   return $count;
+  // }
   public function getFaults()
   {
       $posts = $this->connect()->from('diagnosis')

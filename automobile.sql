@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 10, 2016 at 11:52 PM
+-- Generation Time: Oct 18, 2016 at 04:50 PM
 -- Server version: 5.6.30
 -- PHP Version: 7.0.6
 
@@ -62,18 +62,47 @@ CREATE TABLE IF NOT EXISTS `diagnosis` (
   `nature_of_fault` text NOT NULL,
   `possible_fault` text NOT NULL,
   `probable_solution` text NOT NULL,
-  `picture` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  `picture` text NOT NULL,
+  `picture2` varchar(90) DEFAULT NULL,
+  `picture3` varchar(90) DEFAULT NULL,
+  `picture4` varchar(90) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `diagnosis`
 --
 
-INSERT INTO `diagnosis` (`diag_id`, `nature_of_fault`, `possible_fault`, `probable_solution`, `picture`) VALUES
-(1, 'Vehicle Break Down', 'Bad Engine Oil', 'Nothing, Just Change Oil', ''),
-(2, 'Auto Failure', 'Bad Rollers and Battery', 'Change Roller Belts and Battery', ''),
-(3, 'Car Burglar', 'Broken Mirror', 'Nuy new one', 'photo2.jpg'),
-(4, 'Over Heating', 'Due to Less water in Radiator', 'Add Water to radiator', 'ens5.PNG');
+INSERT INTO `diagnosis` (`diag_id`, `nature_of_fault`, `possible_fault`, `probable_solution`, `picture`, `picture2`, `picture3`, `picture4`) VALUES
+(1, 'Vehicle Break Down', 'Bad Engine Oil', 'Nothing, Just Change Oil', '', NULL, NULL, NULL),
+(2, 'Auto Failure', 'Bad Rollers and Battery', 'Change Roller Belts and Battery', '', NULL, NULL, NULL),
+(3, 'Car Burglar', 'Broken Mirror', 'Nuy new one', 'photo2.jpg', NULL, NULL, NULL),
+(4, 'Over Heating', 'Due to Less water in Radiator', 'Add Water to radiator', 'ens5.PNG', NULL, NULL, NULL),
+(5, 'Gbenga Spoil Moto', 'Hunger', 'Give am Food, E get money', 'Photo.jpg', 'photo2.jpg', 'Photo.jpg', 'Photo.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `receipts`
+--
+
+CREATE TABLE IF NOT EXISTS `receipts` (
+  `receipts_id` int(40) NOT NULL,
+  `fault_id` int(40) NOT NULL,
+  `client_id` int(40) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `receipts`
+--
+
+INSERT INTO `receipts` (`receipts_id`, `fault_id`, `client_id`, `date_created`) VALUES
+(1, 5, 1, '2016-10-16 06:28:11'),
+(2, 5, 4, '2016-10-18 17:29:27'),
+(3, 5, 4, '2016-10-18 17:33:57'),
+(4, 5, 4, '2016-10-18 17:33:58'),
+(5, 5, 4, '2016-10-18 17:35:33'),
+(6, 5, 4, '2016-10-18 17:38:17');
 
 -- --------------------------------------------------------
 
@@ -141,6 +170,12 @@ ALTER TABLE `diagnosis`
   ADD PRIMARY KEY (`diag_id`);
 
 --
+-- Indexes for table `receipts`
+--
+ALTER TABLE `receipts`
+  ADD PRIMARY KEY (`receipts_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -165,7 +200,12 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT for table `diagnosis`
 --
 ALTER TABLE `diagnosis`
-  MODIFY `diag_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `diag_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `receipts`
+--
+ALTER TABLE `receipts`
+  MODIFY `receipts_id` int(40) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `users`
 --

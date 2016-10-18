@@ -23,7 +23,8 @@ class AdminController extends C_Base
   	public function index()
   	{
       Init::view('admin/index',array(
-        'clients' => $this->model->getClients(),
+        'clients' => $this->model->getClients()
+        // 'receipt' => $this->model->countReceipt()
       ));
   	}
 
@@ -84,9 +85,16 @@ class AdminController extends C_Base
     public function saveFaults()
     {
       $folderName = "uploads";
-      if (move_uploaded_file($_FILES["file_upload"]["tmp_name"], getcwd() . "/" . $folderName . "/" . $_FILES["file_upload"]["name"]))
+      if (isset($_FILES))
       {
+        move_uploaded_file($_FILES["file_upload"]["tmp_name"], getcwd() . "/" . $folderName . "/" . $_FILES["file_upload"]["name"]);
+        move_uploaded_file($_FILES["file_upload2"]["tmp_name"], getcwd() . "/" . $folderName . "/" . $_FILES["file_upload2"]["name"]);
+        move_uploaded_file($_FILES["file_upload3"]["tmp_name"], getcwd() . "/" . $folderName . "/" . $_FILES["file_upload3"]["name"]);
+        move_uploaded_file($_FILES["file_upload4"]["tmp_name"], getcwd() . "/" . $folderName . "/" . $_FILES["file_upload4"]["name"]);
         $filename = $_FILES["file_upload"]["name"];
+        $filename1 = $_FILES["file_upload2"]["name"];
+        $filename2 = $_FILES["file_upload3"]["name"];
+        $filename3 = $_FILES["file_upload4"]["name"];
         $nature = $_POST['nature'];
         $faults = htmlentities($_POST['faults']);
         $solution = stripslashes($_POST['solution']);
@@ -94,7 +102,10 @@ class AdminController extends C_Base
                   'nature_of_fault' => $nature,
                   'possible_fault' => $faults,
                   'probable_solution' => $solution,
-                  'picture' => $filename
+                  'picture' => $filename,
+                  'picture2' => $filename1,
+                  'picture3' => $filename2,
+                  'picture4' => $filename3
               ))
               ->into('diagnosis');
         Redirect::to('admin/faults');
@@ -114,12 +125,18 @@ class AdminController extends C_Base
       if (isset($_POST['faults'])) {
         $faults = $_POST['faults'];
         $client = $_POST['client'];
+        $result = $this->model->connect()->insert(array(
+                  'fault_id' => $faults,
+                  'client_id' => $client,
+                ))
+                ->into('receipts');
         Init::view('diagnosis', array(
           'results' => $this->model->getFaultsById($faults),
           'clients' => $this->model->getClientsById($client),
           'errors' => $this->model->getFaults(),
           'customers' => $this->model->getClients()
         ));
+
       }
       else {
         Init::view('diagnosis', array(
@@ -128,6 +145,13 @@ class AdminController extends C_Base
         ));
       }
 
+
+    }
+    public function receipt($val){
+      Init::view('receipt', array(
+        'results' => $this->model->getFaultsById($val[1]),
+        'clients' => $this->model->getClientsById($val[0]),
+      ));
 
     }
 

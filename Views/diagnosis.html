@@ -62,11 +62,14 @@
             </ul>
             <div class="well well-sm">
               <img src="/uploads/{{ fault.picture }}" alt="No Image Available" width="200px" class="img-responsive"/>
+              <img src="/uploads/{{ fault.picture2 }}" width="200px" alt="No Image Available" class="img-responsive"/>
+              <img src="/uploads/{{ fault.picture3 }}" width="200px" alt="No Image Available" class="img-responsive"/>
+              <img src="/uploads/{{ fault.picture4 }}" width="200px" alt="No Image Available" class="img-responsive"/>
             </div>
           </div>
         </div>
 </div>
-    {% endfor %}
+
 
     {% for post in clients %}
 <div class="col-md-6">
@@ -75,6 +78,7 @@
           Search Results
       </div>
       <div class="panel-body">
+
         <ul class="list-group">
           <li class="list-group-item">Client's Name: {{ post.name }}</li>
           <li class="list-group-item">Location: {{ post.location }}</li>
@@ -90,9 +94,12 @@
         </ul>
       </div>
     </div>
+
+    <a href="/admin/receipt/{{ post.client_id }}/{{ fault.diag_id }}" class="btn btn-default btn-sm">Print</a>
+    {{ forms.close() }}
 </div>
 {% endfor %}
-
+{% endfor %}
   {% else %}
   <div class="alert alert-danger">
     <p>
